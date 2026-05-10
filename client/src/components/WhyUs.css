@@ -1,0 +1,41 @@
+/* WhyUs Section Styles */
+
+.why-us {
+  background: linear-gradient(180deg, transparent 0%, rgba(132, 94, 247, 0.04) 50%, transparent 100%);
+}
+
+.why-us__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.why-us__card {
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.why-us__icon {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.why-us__title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.why-us__desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .why-us__grid { grid-template-columns: 1fr; }
+}

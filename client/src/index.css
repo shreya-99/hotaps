@@ -1,0 +1,313 @@
+/*
+ * ================================================================
+ * GLOBAL STYLES & DESIGN SYSTEM
+ * ================================================================
+ *
+ * Design Philosophy:
+ *   "Dark Luxury Tech" — deep space blacks, electric teal accents,
+ *   geometric glass morphism cards, smooth motion.
+ *
+ * All design tokens live as CSS variables under :root so you can
+ * change the entire look of the site by editing just this section.
+ */
+
+/* ── GOOGLE FONTS are loaded in index.html ───────────────────── */
+
+/* ── DESIGN TOKENS ───────────────────────────────────────────── */
+:root {
+  /* Background layers */
+  --bg-base:        #07070F;   /* deepest background */
+  --bg-surface:     #0D0D1A;   /* cards, sections */
+  --bg-elevated:    #12122A;   /* modals, tooltips */
+
+  /* Brand colors */
+  --accent-teal:    #00C9A7;   /* primary CTA, highlights */
+  --accent-purple:  #845EF7;   /* secondary accent */
+  --accent-blue:    #3B82F6;   /* links, info */
+
+  /* Text */
+  --text-primary:   #F0F2F7;
+  --text-secondary: #8892A4;
+  --text-muted:     #4A5568;
+
+  /* Borders & dividers */
+  --border:         rgba(255, 255, 255, 0.07);
+  --border-accent:  rgba(0, 201, 167, 0.3);
+
+  /* Glow effects */
+  --glow-teal:      0 0 40px rgba(0, 201, 167, 0.2);
+  --glow-purple:    0 0 40px rgba(132, 94, 247, 0.2);
+
+  /* Typography */
+  --font-display:   'Outfit', sans-serif;    /* headings */
+  --font-body:      'DM Sans', sans-serif;   /* body text */
+
+  /* Spacing scale */
+  --section-py:     120px;
+  --container-max:  1200px;
+  --container-px:   24px;
+
+  /* Border radius */
+  --radius-sm:      8px;
+  --radius-md:      16px;
+  --radius-lg:      24px;
+  --radius-xl:      32px;
+
+  /* Transitions */
+  --transition:     0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── RESET & BASE ─────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Slightly larger base font for readability */
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  /* Subtle noise texture overlay for depth */
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 201, 167, 0.08) 0%, transparent 60%);
+}
+
+/* ── TYPOGRAPHY ───────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--text-primary);
+}
+
+h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); }
+h2 { font-size: clamp(2rem, 4vw, 3rem); }
+h3 { font-size: clamp(1.25rem, 2vw, 1.75rem); }
+
+p {
+  color: var(--text-secondary);
+  line-height: 1.75;
+}
+
+a {
+  color: var(--accent-teal);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+a:hover { color: #00E8C3; }
+
+img, svg { max-width: 100%; display: block; }
+
+/* ── LAYOUT UTILITIES ─────────────────────────────────────────── */
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-px);
+}
+
+.section {
+  padding: var(--section-py) 0;
+  position: relative;
+}
+
+/* Section label (small text above heading) */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-teal);
+  margin-bottom: 16px;
+}
+.section-label::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 2px;
+  background: var(--accent-teal);
+  border-radius: 2px;
+}
+
+.section-heading {
+  margin-bottom: 16px;
+}
+
+.section-subheading {
+  max-width: 600px;
+  margin-bottom: 64px;
+  font-size: 1.1rem;
+}
+
+/* ── BUTTONS ──────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all var(--transition);
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+/* Primary button — teal fill */
+.btn-primary {
+  background: var(--accent-teal);
+  color: #07070F;
+}
+.btn-primary:hover {
+  background: #00E8C3;
+  color: #07070F;
+  transform: translateY(-2px);
+  box-shadow: var(--glow-teal);
+}
+
+/* Secondary button — ghost outline */
+.btn-secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+.btn-secondary:hover {
+  border-color: var(--accent-teal);
+  color: var(--accent-teal);
+  transform: translateY(-2px);
+}
+
+/* WhatsApp button — green */
+.btn-whatsapp {
+  background: #25D366;
+  color: #fff;
+}
+.btn-whatsapp:hover {
+  background: #1ebe57;
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(37, 211, 102, 0.3);
+}
+
+/* ── GLASS CARD ───────────────────────────────────────────────── */
+/* Reusable glass-morphism card style */
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all var(--transition);
+}
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--border-accent);
+  transform: translateY(-4px);
+  box-shadow: var(--glow-teal);
+}
+
+/* ── GRADIENT TEXT ────────────────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent-teal) 0%, var(--accent-purple) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── SCROLL REVEAL ANIMATIONS ─────────────────────────────────── */
+/* Elements start hidden; the useScrollAnimation hook adds .revealed */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered children — each child delays by 100ms more */
+.reveal-stagger > *:nth-child(1) { transition-delay: 0ms; }
+.reveal-stagger > *:nth-child(2) { transition-delay: 100ms; }
+.reveal-stagger > *:nth-child(3) { transition-delay: 200ms; }
+.reveal-stagger > *:nth-child(4) { transition-delay: 300ms; }
+.reveal-stagger > *:nth-child(5) { transition-delay: 400ms; }
+.reveal-stagger > *:nth-child(6) { transition-delay: 500ms; }
+
+/* ── SCROLLBAR ────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-base); }
+::-webkit-scrollbar-thumb {
+  background: var(--accent-teal);
+  border-radius: 3px;
+}
+
+/* ── SELECTION ────────────────────────────────────────────────── */
+::selection {
+  background: rgba(0, 201, 167, 0.3);
+  color: var(--text-primary);
+}
+
+/* ── RESPONSIVE BREAKPOINTS ───────────────────────────────────── */
+@media (max-width: 1024px) {
+  :root {
+    --section-py: 80px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --section-py: 64px;
+    --container-px: 20px;
+  }
+}
+
+/* ── FOCUS VISIBLE (Accessibility) ───────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--accent-teal);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* ── GRID BACKGROUND PATTERN ─────────────────────────────────── */
+/* Used as a decorative background in the Hero section */
+.grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── FLOATING ORBS (decorative blobs) ────────────────────────── */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+.orb-teal {
+  background: radial-gradient(circle, rgba(0, 201, 167, 0.15) 0%, transparent 70%);
+}
+.orb-purple {
+  background: radial-gradient(circle, rgba(132, 94, 247, 0.12) 0%, transparent 70%);
+}

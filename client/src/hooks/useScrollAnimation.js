@@ -1,0 +1,50 @@
+/**
+ * useScrollAnimation Hook
+ * ─────────────────────────────────────────────────────────────
+ * Uses the browser's IntersectionObserver API to watch elements
+ * and add the 'revealed' class when they enter the viewport.
+ *
+ * Usage:
+ *   const ref = useScrollAnimation();
+ *   return <div ref={ref} className="reveal">...</div>
+ *
+ * The .reveal class hides elements (opacity:0, translateY(30px))
+ * and .revealed makes them visible via CSS transitions.
+ * See index.css for the animation definitions.
+ */
+import { useEffect, useRef } from 'react';
+
+const useScrollAnimation = (options = {}) => {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Add .revealed to trigger the CSS transition
+            entry.target.classList.add('revealed');
+            // Once revealed, stop observing (animation plays once)
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: options.threshold || 0.1,   // Trigger when 10% visible
+        rootMargin: options.rootMargin || '0px 0px -60px 0px', // Slightly earlier trigger
+      }
+    );
+
+    observer.observe(element);
+
+    // Cleanup: disconnect observer when component unmounts
+    return () => observer.disconnect();
+  }, [options.threshold, options.rootMargin]);
+
+  return ref;
+};
+
+export default useScrollAnimation;

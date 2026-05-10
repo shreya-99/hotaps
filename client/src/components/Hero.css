@@ -1,0 +1,207 @@
+/*
+ * Hero Section Styles
+ */
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 100px;
+  overflow: hidden;
+}
+
+/* Decorative colour orbs */
+.hero__orb-1 {
+  width: 700px;
+  height: 700px;
+  top: -200px;
+  right: -200px;
+}
+.hero__orb-2 {
+  width: 500px;
+  height: 500px;
+  bottom: 0;
+  left: -150px;
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  padding-top: 60px;
+  padding-bottom: 80px;
+  max-width: 860px;
+}
+
+/* ── "Available for projects" badge ── */
+.hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 1px solid var(--border-accent);
+  border-radius: 100px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--accent-teal);
+  background: rgba(0, 201, 167, 0.06);
+  margin-bottom: 28px;
+  animation: fadeInDown 0.8s ease both;
+}
+
+.hero__badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-teal);
+  box-shadow: 0 0 8px var(--accent-teal);
+  /* Pulse animation to show "live" availability */
+  animation: pulse 2s ease infinite;
+}
+
+/* ── Headline ── */
+.hero__headline {
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -2px;
+  margin-bottom: 24px;
+  animation: fadeInUp 0.9s ease 0.1s both;
+}
+
+/* ── Subheadline ── */
+.hero__sub {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  max-width: 620px;
+  margin-bottom: 40px;
+  line-height: 1.7;
+  animation: fadeInUp 0.9s ease 0.2s both;
+}
+
+/* ── CTA Buttons ── */
+.hero__ctas {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 64px;
+  animation: fadeInUp 0.9s ease 0.3s both;
+}
+
+.hero__cta-primary {
+  padding: 16px 32px;
+  font-size: 1rem;
+}
+
+/* ── Stats Row ── */
+.hero__stats {
+  display: flex;
+  gap: 48px;
+  flex-wrap: wrap;
+  animation: fadeInUp 0.9s ease 0.4s both;
+}
+
+.hero__stat {
+  position: relative;
+}
+
+/* Divider between stats */
+.hero__stat:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: -24px;
+  top: 10%;
+  height: 80%;
+  width: 1px;
+  background: var(--border);
+}
+
+.hero__stat-value {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1;
+  margin-bottom: 4px;
+  background: linear-gradient(135deg, #fff 0%, var(--accent-teal) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero__stat-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ── Infinite-scroll badge strip ── */
+.hero__badges-wrap {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  overflow: hidden;
+  padding: 24px 0;
+  /* Fade edges for smooth look */
+  mask-image: linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%);
+  border-top: 1px solid var(--border);
+}
+
+.hero__badges-track {
+  display: flex;
+  gap: 12px;
+  width: max-content;
+  /* Scroll from right to left. Duration controls speed. */
+  animation: scrollLeft 30s linear infinite;
+}
+
+.hero__badge-pill {
+  padding: 8px 20px;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: rgba(255,255,255,0.02);
+  white-space: nowrap;
+  transition: all var(--transition);
+}
+.hero__badge-pill:hover {
+  color: var(--accent-teal);
+  border-color: var(--border-accent);
+}
+
+/* ── Keyframe Animations ── */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.85); }
+}
+
+@keyframes scrollLeft {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }  /* Move by exactly 50% (because we doubled the items) */
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .hero__inner {
+    padding-top: 40px;
+    padding-bottom: 60px;
+  }
+  .hero__headline { letter-spacing: -1px; }
+  .hero__stats { gap: 28px; }
+  .hero__stat-value { font-size: 2rem; }
+  .hero__stat:not(:last-child)::after { right: -14px; }
+}

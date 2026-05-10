@@ -1,0 +1,109 @@
+/* Process Section Styles */
+
+.process {
+  position: relative;
+}
+
+.process__steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+}
+
+.process__step {
+  display: grid;
+  grid-template-columns: 1fr 80px 1fr;
+  align-items: center;
+  gap: 0;
+  position: relative;
+  padding: 20px 0;
+}
+
+/* Right-side steps flip content to the right column */
+.process__step--right {
+  direction: rtl; /* Flip entire row */
+}
+.process__step--right .process__content,
+.process__step--right .process__bubble {
+  direction: ltr; /* Reset text inside */
+}
+
+/* Vertical connector line between steps */
+.process__connector {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--border-accent) 0%, transparent 100%);
+  transform: translateX(-50%);
+  z-index: 0;
+}
+
+/* Numbered circle */
+.process__bubble {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid var(--border-accent);
+  background: var(--bg-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 0 20px rgba(0, 201, 167, 0.15);
+}
+
+.process__bubble span {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--accent-teal);
+}
+
+/* Content card */
+.process__content {
+  padding: 24px 28px;
+  margin: 0 20px;
+}
+
+.process__title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.process__desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ── Mobile: linear vertical list ── */
+@media (max-width: 768px) {
+  .process__step {
+    grid-template-columns: 48px 1fr;
+    grid-template-rows: auto auto;
+  }
+  .process__step--right { direction: ltr; }
+  .process__connector {
+    left: 23px;
+    top: 0;
+    height: 100%;
+  }
+  .process__bubble {
+    width: 48px;
+    height: 48px;
+    margin: 0;
+  }
+  .process__content {
+    margin: 0 0 0 16px;
+    grid-column: 2;
+    grid-row: 1;
+  }
+}

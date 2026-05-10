@@ -1,0 +1,11 @@
+# robots.txt for hotaps.com
+# Allow all search engines to crawl the entire site
+
+User-agent: *
+Allow: /
+
+# Block crawling of API endpoints (no useful content for Google)
+Disallow: /api/
+
+# Sitemap location — helps Google find and index all pages faster
+Sitemap: https://hotaps.com/sitemap.xml

@@ -1,0 +1,151 @@
+/*
+ * Services Section Styles
+ */
+
+.services {
+  position: relative;
+}
+
+.services__orb {
+  width: 600px;
+  height: 600px;
+  top: 50%;
+  right: -200px;
+  transform: translateY(-50%);
+}
+
+/* Responsive auto-fill grid: 3 cols on desktop, 2 on tablet, 1 on mobile */
+.services__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px;
+}
+
+/* ── Service Card ── */
+.service-card {
+  position: relative;
+  padding: 32px 28px;
+  overflow: hidden;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Colored accent bar at the top of each card — color comes from --card-accent */
+.service-card__accent-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--card-accent, var(--accent-teal));
+  opacity: 0.8;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  transition: opacity var(--transition);
+}
+.service-card:hover .service-card__accent-bar {
+  opacity: 1;
+}
+
+.service-card__icon {
+  font-size: 2.5rem;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.service-card__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.service-card__short-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin: 0;
+  /* Show short desc by default, hide full desc */
+}
+
+/* Full description — hidden by default, revealed on hover */
+.service-card__desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: all 0.4s ease;
+  margin: 0;
+}
+.service-card:hover .service-card__desc {
+  max-height: 200px;
+  opacity: 1;
+}
+
+/* Feature checklist */
+.service-card__features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.service-card__features li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.service-card__features li svg {
+  flex-shrink: 0;
+  color: var(--card-accent, var(--accent-teal));
+}
+
+/* "Discuss" CTA — slides up from bottom on hover */
+.service-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--card-accent, var(--accent-teal));
+  text-decoration: none;
+  border-top: 1px solid var(--border);
+  transition: gap var(--transition);
+}
+.service-card__cta:hover {
+  gap: 14px;
+  color: var(--card-accent, var(--accent-teal));
+}
+
+/* Bottom CTA row below the grid */
+.services__bottom-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 64px;
+  padding: 32px;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-lg);
+  flex-wrap: wrap;
+}
+
+.services__bottom-cta p {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .services__grid {
+    grid-template-columns: 1fr;
+  }
+}

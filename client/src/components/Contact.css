@@ -1,0 +1,237 @@
+/* Contact Section Styles */
+
+.contact {
+  position: relative;
+}
+
+.contact__orb {
+  width: 600px;
+  height: 600px;
+  bottom: -100px;
+  left: -200px;
+}
+
+/* Two-column layout: info left, form right */
+.contact__body {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 40px;
+  align-items: start;
+}
+
+/* ── Info Cards Column ── */
+.contact__info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contact__info-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.contact__info-icon { font-size: 1.8rem; }
+
+.contact__info-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 2px;
+}
+
+.contact__info-value {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.contact__info-arrow {
+  margin-left: auto;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: all var(--transition);
+}
+.contact__info-card:hover .contact__info-arrow {
+  color: var(--accent-teal);
+  transform: translateX(4px);
+}
+
+.contact__response-note {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  padding: 12px 0;
+  text-align: center;
+}
+.contact__response-note strong { color: var(--accent-teal); }
+
+/* ── Form Card ── */
+.contact__form-wrap {
+  padding: 40px 36px;
+}
+
+.contact__form-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 28px;
+  color: var(--text-primary);
+}
+
+.contact__form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact__form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* ── Form Field ── */
+.contact__field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contact__field label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.03em;
+}
+
+.contact__field input,
+.contact__field select,
+.contact__field textarea {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  transition: border-color var(--transition), box-shadow var(--transition);
+  outline: none;
+  width: 100%;
+}
+
+.contact__field input::placeholder,
+.contact__field textarea::placeholder {
+  color: var(--text-muted);
+}
+
+/* Focus state */
+.contact__field input:focus,
+.contact__field select:focus,
+.contact__field textarea:focus {
+  border-color: var(--accent-teal);
+  box-shadow: 0 0 0 3px rgba(0, 201, 167, 0.12);
+}
+
+/* Select dropdown arrow */
+.contact__field select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238892A4' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+
+/* Select option styling (limited browser support, but OK) */
+.contact__field select option {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+}
+
+.contact__field textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* Error message */
+.contact__error {
+  padding: 12px 16px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  color: #FC8181;
+}
+
+/* Actions row */
+.contact__form-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.contact__submit {
+  flex: 1;
+  min-width: 160px;
+  justify-content: center;
+}
+
+/* Loading spinner */
+.contact__spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(7, 7, 15, 0.3);
+  border-top-color: #07070F;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.contact__privacy {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin: 0;
+}
+
+/* ── Success State ── */
+.contact__success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  padding: 20px 0;
+}
+
+.contact__success-icon { font-size: 4rem; }
+
+.contact__success h3 {
+  font-size: 1.6rem;
+  color: var(--text-primary);
+}
+
+.contact__success p {
+  max-width: 400px;
+  font-size: 0.95rem;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .contact__body { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .contact__form-row { grid-template-columns: 1fr; }
+  .contact__form-wrap { padding: 28px 20px; }
+  .contact__form-actions { flex-direction: column; }
+  .contact__submit { min-width: unset; }
+}
