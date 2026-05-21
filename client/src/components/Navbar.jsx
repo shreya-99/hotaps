@@ -56,11 +56,11 @@ const Navbar = () => {
       <div className="container navbar__inner">
 
         {/* ── Logo ── */}
-        <a href="/" className="navbar__logo" aria-label="House of Technology — home">
+        <a href="/" className="navbar__logo" aria-label={`${SITE_CONFIG.brand.name} — home`}>
           <span className="navbar__logo-icon">⬡</span>
           <div className="navbar__logo-text">
             <span className="navbar__logo-brand">{SITE_CONFIG.brand.shortName}</span>
-            <span className="navbar__logo-sub">House of Technology</span>
+            <span className="navbar__logo-sub">{SITE_CONFIG.brand.name}</span>
           </div>
         </a>
 

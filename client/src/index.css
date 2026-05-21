@@ -16,9 +16,9 @@
 /* ── DESIGN TOKENS ───────────────────────────────────────────── */
 :root {
   /* Background layers */
-  --bg-base:        #07070F;   /* deepest background */
-  --bg-surface:     #0D0D1A;   /* cards, sections */
-  --bg-elevated:    #12122A;   /* modals, tooltips */
+  --bg-base:        #0C0C1E;   /* deepest background */
+  --bg-surface:     #13132A;   /* cards, sections */
+  --bg-elevated:    #1A1A38;   /* modals, tooltips */
 
   /* Brand colors */
   --accent-teal:    #00C9A7;   /* primary CTA, highlights */
@@ -27,12 +27,12 @@
 
   /* Text */
   --text-primary:   #F0F2F7;
-  --text-secondary: #8892A4;
-  --text-muted:     #4A5568;
+  --text-secondary: #9AA5B8;
+  --text-muted:     #5C6882;
 
   /* Borders & dividers */
-  --border:         rgba(255, 255, 255, 0.07);
-  --border-accent:  rgba(0, 201, 167, 0.3);
+  --border:         rgba(255, 255, 255, 0.10);
+  --border-accent:  rgba(0, 201, 167, 0.35);
 
   /* Glow effects */
   --glow-teal:      0 0 40px rgba(0, 201, 167, 0.2);
@@ -172,11 +172,11 @@ img, svg { max-width: 100%; display: block; }
 /* Primary button — teal fill */
 .btn-primary {
   background: var(--accent-teal);
-  color: #07070F;
+  color: var(--bg-base);
 }
 .btn-primary:hover {
   background: #00E8C3;
-  color: #07070F;
+  color: var(--bg-base);
   transform: translateY(-2px);
   box-shadow: var(--glow-teal);
 }
@@ -207,7 +207,7 @@ img, svg { max-width: 100%; display: block; }
 /* ── GLASS CARD ───────────────────────────────────────────────── */
 /* Reusable glass-morphism card style */
 .glass-card {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   backdrop-filter: blur(12px);
@@ -215,7 +215,7 @@ img, svg { max-width: 100%; display: block; }
   transition: all var(--transition);
 }
 .glass-card:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.08);
   border-color: var(--border-accent);
   transform: translateY(-4px);
   box-shadow: var(--glow-teal);

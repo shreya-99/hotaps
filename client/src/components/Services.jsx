@@ -15,9 +15,9 @@ import './Services.css';
 
 const ServiceCard = ({ service, index }) => {
   const ref = useScrollAnimation();
+  const { brand } = SITE_CONFIG;
 
-  // Custom WhatsApp message per service for better conversion
-  const whatsappMsg = `Hi HoTaps! I'm interested in your ${service.title} service. Can we discuss?`;
+  const whatsappMsg = `Hi ${brand.shortName}! I'm interested in your ${service.title} service. Can we discuss?`;
 
   return (
     <article
@@ -110,7 +110,7 @@ const Services = () => {
         <div className="services__bottom-cta reveal" ref={useScrollAnimation()}>
           <p>Not sure which service you need?</p>
           <a
-            href={getWhatsAppUrl('Hi HoTaps! I need help figuring out the right tech solution for my project.')}
+            href={getWhatsAppUrl(`Hi ${SITE_CONFIG.brand.shortName}! I need help figuring out the right tech solution for my project.`)}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-whatsapp"

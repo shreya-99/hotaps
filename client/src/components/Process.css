@@ -1,109 +1,139 @@
-/* Process Section Styles */
+/*
+ * Process Section — Vertical Timeline Layout
+ *
+ * Structure per step:
+ *   .process__step (flex row)
+ *     ├── .process__track (flex column: bubble + vline)
+ *     │     ├── .process__bubble  (numbered circle)
+ *     │     └── .process__vline   (connector to next step)
+ *     └── .process__content (glass card)
+ *
+ * Why flexbox instead of grid:
+ *   The old 3-col grid broke because position:absolute children
+ *   don't consume grid cells, so content landed in the 80px col.
+ *   Flexbox with explicit track width is clean and bulletproof.
+ */
 
-.process {
-  position: relative;
-}
+.process { position: relative; }
 
+/* ── Steps container ──────────────────────────────────────── */
 .process__steps {
   display: flex;
   flex-direction: column;
-  gap: 0;
-  position: relative;
+  /* No gap here — spacing is handled by vline + card margin */
 }
 
+/* ── Individual step row ──────────────────────────────────── */
 .process__step {
-  display: grid;
-  grid-template-columns: 1fr 80px 1fr;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 28px;
+}
+
+/* ── Left track (bubble + vertical line) ─────────────────── */
+.process__track {
+  /* Fixed width so it never collapses or shifts */
+  width: 56px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 0;
-  position: relative;
-  padding: 20px 0;
-}
-
-/* Right-side steps flip content to the right column */
-.process__step--right {
-  direction: rtl; /* Flip entire row */
-}
-.process__step--right .process__content,
-.process__step--right .process__bubble {
-  direction: ltr; /* Reset text inside */
-}
-
-/* Vertical connector line between steps */
-.process__connector {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(180deg, var(--border-accent) 0%, transparent 100%);
-  transform: translateX(-50%);
-  z-index: 0;
 }
 
 /* Numbered circle */
 .process__bubble {
-  width: 60px;
-  height: 60px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   border: 2px solid var(--border-accent);
   background: var(--bg-surface);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
+  box-shadow: 0 0 20px rgba(0, 201, 167, 0.14);
+  flex-shrink: 0;
   position: relative;
   z-index: 1;
-  box-shadow: 0 0 20px rgba(0, 201, 167, 0.15);
 }
 
 .process__bubble span {
   font-family: var(--font-display);
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 800;
   color: var(--accent-teal);
 }
 
-/* Content card */
+/* Vertical line between bubbles — hidden on last step */
+.process__vline {
+  width: 2px;
+  /* flex: 1 lets it stretch to fill whatever gap the card + margin create */
+  flex: 1;
+  min-height: 32px;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 201, 167, 0.35) 0%,
+    rgba(0, 201, 167, 0.05) 100%
+  );
+  border-radius: 2px;
+  margin: 6px 0;
+}
+
+/* ── Content card ─────────────────────────────────────────── */
 .process__content {
-  padding: 24px 28px;
-  margin: 0 20px;
+  flex: 1;                    /* takes all remaining width */
+  padding: 22px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  /* Aligns card top with bubble top */
+  margin-top: 4px;
+}
+
+/* Bottom margin on all cards except last — creates visual spacing
+   between steps while letting the vline stretch to fill it */
+.process__content--with-gap {
+  margin-bottom: 20px;
+}
+
+/* Small "Step 01" pill label */
+.process__step-label {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-teal);
+  opacity: 0.8;
 }
 
 .process__title {
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 8px;
+  margin: 0;
+  line-height: 1.3;
 }
 
 .process__desc {
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   color: var(--text-secondary);
-  line-height: 1.65;
+  line-height: 1.7;
   margin: 0;
 }
 
-/* ── Mobile: linear vertical list ── */
-@media (max-width: 768px) {
-  .process__step {
-    grid-template-columns: 48px 1fr;
-    grid-template-rows: auto auto;
-  }
-  .process__step--right { direction: ltr; }
-  .process__connector {
-    left: 23px;
-    top: 0;
-    height: 100%;
-  }
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .process__step { gap: 18px; }
+
+  .process__track { width: 44px; }
+
   .process__bubble {
-    width: 48px;
-    height: 48px;
-    margin: 0;
+    width: 44px;
+    height: 44px;
   }
-  .process__content {
-    margin: 0 0 0 16px;
-    grid-column: 2;
-    grid-row: 1;
-  }
+
+  .process__bubble span { font-size: 0.82rem; }
+
+  .process__content { padding: 16px 18px; }
 }

@@ -17,7 +17,7 @@ export const SITE_CONFIG = {
   // ── BRANDING ──────────────────────────────────────────────────
   brand: {
     name: 'House of Technology',
-    shortName: 'HoTaps',
+    shortName: 'HOT',
     tagline: 'We Build Digital Products That Scale.',
     description:
       'We are a premier software development agency crafting high-performance web apps, mobile apps, and cloud solutions for startups and enterprises.',
@@ -32,7 +32,7 @@ export const SITE_CONFIG = {
      * Used to generate the wa.me link for the WhatsApp CTA button.
      * Example: '919876543210' for India +91 98765 43210
      */
-    whatsapp: '919876543210',
+    whatsapp: '919211845544',
 
     /**
      * Default WhatsApp message pre-filled for the user
@@ -42,7 +42,7 @@ export const SITE_CONFIG = {
     /**
      * Display phone number (shown in UI, formatted for readability)
      */
-    phone: '+91 98765 43210',
+    phone: '+91 9211845544',
 
     /**
      * Business email address
@@ -52,15 +52,12 @@ export const SITE_CONFIG = {
     /**
      * Physical / registered address (optional — shown in footer)
      */
-    address: 'Bengaluru, Karnataka, India',
+    address: 'Delhi, India',
   },
 
   // ── SOCIAL LINKS ──────────────────────────────────────────────
   social: {
-    linkedin: 'https://www.linkedin.com/company/hotaps',
-    twitter: 'https://twitter.com/hotaps',
-    github: 'https://github.com/hotaps',
-    instagram: 'https://instagram.com/hotaps',
+    linkedin: 'https://www.linkedin.com/company/house-of-technology-hot/',
   },
 
   // ── SEO ───────────────────────────────────────────────────────
@@ -71,7 +68,6 @@ export const SITE_CONFIG = {
     defaultDescription:
       'HoTaps is a premium software agency building scalable Node.js, React, AWS, Android, iOS & Flutter solutions.',
     ogImage: 'https://hotaps.com/og-image.jpg',
-    twitterHandle: '@hotaps',
   },
 
   // ── HERO SECTION ──────────────────────────────────────────────
@@ -267,11 +263,87 @@ export const SITE_CONFIG = {
     },
   ],
 
-  // ── TECH STACK LOGOS (displayed as skill badges) ──────────────
+  // ── TECH STACK BADGES (used in Hero scrolling strip) ─────────
   techBadges: [
     'Node.js', 'React.js', 'Next.js', 'TypeScript', 'Flutter', 'Dart',
     'Swift', 'Kotlin', 'AWS', 'Firebase', 'MongoDB', 'PostgreSQL',
     'Redis', 'Docker', 'Kubernetes', 'GraphQL', 'Terraform', 'GitHub Actions',
+  ],
+
+  // ── TECH STACK SECTION (full categorised grid) ────────────────
+  // Each category has an icon, label, color accent, and a list of tools.
+  // Add/remove tools or whole categories freely here.
+  techStack: [
+    {
+      id: 'frontend',
+      icon: '🖥',
+      category: 'Frontend',
+      color: '#00BCD4',
+      tools: [
+        { name: 'React.js',    icon: '⚛',  desc: 'UI library'         },
+        { name: 'Next.js',     icon: '▲',  desc: 'SSR framework'      },
+        { name: 'TypeScript',  icon: '𝙏𝙎', desc: 'Typed JavaScript'   },
+        { name: 'Vite',        icon: '⚡',  desc: 'Build tool'         },
+        { name: 'Tailwind CSS',icon: '🎨',  desc: 'Utility CSS'        },
+        { name: 'GraphQL',     icon: '◈',  desc: 'Query language'     },
+      ],
+    },
+    {
+      id: 'backend',
+      icon: '⚙',
+      category: 'Backend',
+      color: '#43A047',
+      tools: [
+        { name: 'Node.js',    icon: '⬡',  desc: 'JS runtime'         },
+        { name: 'Express',    icon: '🚂',  desc: 'Web framework'      },
+        { name: 'Fastify',    icon: '🏎',  desc: 'Fast framework'     },
+        { name: 'REST APIs',  icon: '🔗',  desc: 'API design'         },
+        { name: 'WebSockets', icon: '🔌',  desc: 'Real-time'          },
+        { name: 'Microservices', icon: '🔷', desc: 'Architecture'    },
+      ],
+    },
+    {
+      id: 'mobile',
+      icon: '📱',
+      category: 'Mobile',
+      color: '#03A9F4',
+      tools: [
+        { name: 'Flutter',     icon: '💙',  desc: 'Cross-platform'    },
+        { name: 'Dart',        icon: '🎯',  desc: 'Flutter language'  },
+        { name: 'Swift',       icon: '🍎',  desc: 'iOS native'        },
+        { name: 'SwiftUI',     icon: '🖼',  desc: 'iOS UI framework'  },
+        { name: 'Kotlin',      icon: '🤖',  desc: 'Android native'    },
+        { name: 'Jetpack Compose', icon: '📐', desc: 'Android UI'    },
+      ],
+    },
+    {
+      id: 'cloud',
+      icon: '☁',
+      category: 'Cloud & DevOps',
+      color: '#FF9800',
+      tools: [
+        { name: 'AWS',           icon: '☁',  desc: 'Cloud platform'   },
+        { name: 'Docker',        icon: '🐳',  desc: 'Containers'       },
+        { name: 'Kubernetes',    icon: '⎈',  desc: 'Orchestration'    },
+        { name: 'Terraform',     icon: '🏗',  desc: 'Infra as code'    },
+        { name: 'GitHub Actions',icon: '⚙',  desc: 'CI/CD pipelines'  },
+        { name: 'Firebase',      icon: '🔥',  desc: 'BaaS platform'    },
+      ],
+    },
+    {
+      id: 'database',
+      icon: '🗄',
+      category: 'Databases',
+      color: '#9C27B0',
+      tools: [
+        { name: 'PostgreSQL', icon: '🐘',  desc: 'Relational DB'     },
+        { name: 'MongoDB',    icon: '🍃',  desc: 'Document DB'       },
+        { name: 'Redis',      icon: '🟥',  desc: 'In-memory cache'   },
+        { name: 'MySQL',      icon: '🐬',  desc: 'Relational DB'     },
+        { name: 'DynamoDB',   icon: '⚡',  desc: 'AWS NoSQL'         },
+        { name: 'Supabase',   icon: '💚',  desc: 'Open source BaaS'  },
+      ],
+    },
   ],
 };
 

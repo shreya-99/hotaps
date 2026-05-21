@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Dark background -->
+  <rect width="64" height="64" rx="14" fill="#0C0C1E"/>
+  <!-- Hexagon -->
+  <polygon
+    points="32,8 52,19.5 52,44.5 32,56 12,44.5 12,19.5"
+    fill="none"
+    stroke="#00C9A7"
+    stroke-width="3.5"
+    stroke-linejoin="round"
+  />
+  <!-- Letter H centered -->
+  <text
+    x="32"
+    y="39"
+    font-family="Arial, sans-serif"
+    font-weight="800"
+    font-size="22"
+    fill="#00C9A7"
+    text-anchor="middle"
+    dominant-baseline="auto"
+  >H</text>
+</svg>

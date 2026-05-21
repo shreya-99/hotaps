@@ -1,0 +1,197 @@
+/* TechStack Section Styles */
+
+.tech-stack {
+  position: relative;
+}
+
+.tech-stack__orb {
+  width: 500px;
+  height: 500px;
+  top: 10%;
+  left: -150px;
+}
+
+/* ── Category Tabs ── */
+.tech-stack__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 48px;
+}
+
+.tech-stack__tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+
+.tech-stack__tab:hover {
+  border-color: var(--border-accent);
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Active tab — uses --tab-color CSS custom property per category */
+.tech-stack__tab--active {
+  background: rgba(0, 201, 167, 0.1);
+  border-color: var(--tab-color, var(--accent-teal));
+  color: var(--tab-color, var(--accent-teal));
+  box-shadow: 0 0 16px rgba(0, 201, 167, 0.1);
+}
+
+/* Default "All" tab active state */
+.tech-stack__tab--active:first-child {
+  background: rgba(0, 201, 167, 0.1);
+  border-color: var(--accent-teal);
+  color: var(--accent-teal);
+}
+
+.tech-stack__tab-icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+/* ── Panels ── */
+.tech-stack__panels {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.tech-stack__panel {
+  position: relative;
+}
+
+/* Left accent bar per category — uses --cat-color */
+.tech-stack__panel::before {
+  content: '';
+  position: absolute;
+  left: -20px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--cat-color, var(--accent-teal));
+  border-radius: 2px;
+  opacity: 0.6;
+}
+
+/* Category header (icon + label) */
+.tech-stack__cat-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tech-stack__cat-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.tech-stack__cat-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* ── Tool Cards Grid ── */
+.tech-stack__tools {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 12px;
+}
+
+/* Individual tool card */
+.tech-stack__tool {
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover: subtle glow matching category color */
+.tech-stack__tool:hover {
+  border-color: color-mix(in srgb, var(--cat-color, var(--accent-teal)) 50%, transparent);
+  box-shadow: 0 0 24px color-mix(in srgb, var(--cat-color, var(--accent-teal)) 15%, transparent);
+}
+
+.tech-stack__tool-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.tech-stack__tool-name {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Small description badge */
+.tech-stack__tool-desc {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+/* ── Bottom note ── */
+.tech-stack__note {
+  text-align: center;
+  margin-top: 48px;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.tech-stack__note a {
+  color: var(--accent-teal);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--transition);
+}
+.tech-stack__note a:hover {
+  border-color: var(--accent-teal);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .tech-stack__tabs {
+    gap: 6px;
+  }
+  .tech-stack__tab {
+    padding: 8px 14px;
+    font-size: 0.82rem;
+  }
+  .tech-stack__tools {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+  .tech-stack__panel::before {
+    left: -12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tech-stack__tools {
+    grid-template-columns: 1fr 1fr;
+  }
+}
