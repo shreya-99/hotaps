@@ -25,8 +25,8 @@ const config = {
 
   // ── Contact / WhatsApp (configurable here OR in client's site.config.js) ──
   // These are used by the server to include in notification emails
-  whatsappNumber: process.env.WHATSAPP_NUMBER || '919876543210',
-  phoneNumber:    process.env.PHONE_NUMBER    || '+91 98765 43210',
+  whatsappNumber: process.env.WHATSAPP_NUMBER || '919211845544',
+  phoneNumber:    process.env.PHONE_NUMBER    || '+91 9211845544',
 
   // ── Email (Nodemailer SMTP) ──────────────────────────────────
   // Set these in .env to enable email notifications for contact form submissions.
