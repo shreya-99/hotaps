@@ -8,28 +8,32 @@
  * WhatsApp number and phone are pulled from SITE_CONFIG.
  * The form submits to the Express backend which can send email/notify.
  */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import useScrollAnimation from '../hooks/useScrollAnimation';
 import { SITE_CONFIG, getWhatsAppUrl, getTelUrl, getMailtoUrl } from '../config/site.config';
 import './Contact.css';
 
 /** Individual info card (phone/email/etc) */
-const InfoCard = ({ icon, label, value, href, external }) => (
+const InfoCard = ({ icon, label, value, href, external, onClick, badge }) => (
   <a
     href={href}
     className="contact__info-card glass-card"
     target={external ? '_blank' : undefined}
     rel={external ? 'noopener noreferrer' : undefined}
     aria-label={`${label}: ${value}`}
+    onClick={onClick}
   >
     <div className="contact__info-icon" aria-hidden="true">{icon}</div>
     <div>
       <p className="contact__info-label">{label}</p>
       <p className="contact__info-value">{value}</p>
     </div>
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="contact__info-arrow" aria-hidden="true">
-      <path d="M5 12h14M12 5l7 7-7 7"/>
-    </svg>
+    {badge
+      ? <span className="contact__info-badge">{badge}</span>
+      : <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="contact__info-arrow" aria-hidden="true">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+    }
   </a>
 );
 
@@ -39,26 +43,132 @@ const Contact = () => {
   const infoRef     = useScrollAnimation();
 
   // ── Form State ──────────────────────────────────────────────
-  const [form, setForm] = useState({ name: '', email: '', phone: '', service: '', message: '' });
+  const [form, setForm] = useState(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem('hotaps_contact') || '{}');
+      return { name: saved.name || '', email: saved.email || '', phone: saved.phone || '', service: '', message: '' };
+    } catch { return { name: '', email: '', phone: '', service: '', message: '' }; }
+  });
   const [status, setStatus] = useState('idle'); // idle | loading | success | error
+  const [errorMsg, setErrorMsg] = useState('');
+  const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState({});
+  const [isSuggesting, setIsSuggesting] = useState(false);
+  const [emailCopied, setEmailCopied] = useState(false);
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  // Save name/email/phone to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem('hotaps_contact', JSON.stringify({ name: form.name, email: form.email, phone: form.phone }));
+  }, [form.name, form.email, form.phone]);
+
+  const validate = (field, value) => {
+    switch (field) {
+      case 'name':
+        if (!value.trim()) return 'Full name is required.';
+        if (value.trim().length < 2) return 'Name must be at least 2 characters.';
+        if (!/^[a-zA-Z\s'.‑-]+$/.test(value)) return 'Name should only contain letters.';
+        return '';
+      case 'email':
+        if (!value.trim()) return 'Email is required.';
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value)) return 'Please enter a valid email address.';
+        return '';
+      case 'phone': {
+        if (!value) return '';
+        const digits = value.replace(/[\s\-().+]/g, '');
+        const valid = /^(91)?[6-9]\d{9}$/.test(digits) || /^\d{7,15}$/.test(digits);
+        return valid ? '' : 'Please enter a valid phone number.';
+      }
+      case 'service':
+        return value ? '' : 'Please select a service.';
+      default:
+        return '';
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm(prev => ({ ...prev, [name]: value }));
+    if (touched[name]) {
+      setErrors(prev => ({ ...prev, [name]: validate(name, value) }));
+    }
+  };
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    setTouched(prev => ({ ...prev, [name]: true }));
+    setErrors(prev => ({ ...prev, [name]: validate(name, value) }));
+  };
+
+  const handleEmailCopy = (e) => {
+    e.preventDefault();
+    navigator.clipboard.writeText(contact.email).then(() => {
+      setEmailCopied(true);
+      setTimeout(() => setEmailCopied(false), 2000);
+    });
+  };
+
+  const SUGGEST_TEMPLATES = {
+    nodejs:     (n) => `Hi, I'm ${n || 'interested'} and looking to build a Node.js backend — REST APIs, database integration, and authentication. My target timeline is 2–3 months. Could we discuss scope and pricing?`,
+    reactjs:    (n) => `Hi, I'm ${n || 'reaching out'} and need a React.js web app with a clean, responsive UI. I'd love to discuss the design, features, and timeline with your team.`,
+    aws:        (n) => `Hi, I'm ${n || 'reaching out'} and need help setting up AWS infrastructure — cloud hosting, auto-scaling, and CI/CD pipelines. Please share your approach and pricing.`,
+    android:    (n) => `Hi, I'm ${n || 'interested'} and want to build an Android app for my business. I need a polished, performant app with a great UX. Looking forward to discussing the project.`,
+    ios:        (n) => `Hi, I'm ${n || 'interested'} and looking to develop an iOS application. Could we discuss the features, design, and estimated timeline for delivery?`,
+    flutter:    (n) => `Hi, I'm ${n || 'reaching out'} and want a cross-platform Flutter app for both Android and iOS. Please share your process and how you handle UI consistency across platforms.`,
+    frontend:   (n) => `Hi, I'm ${n || 'reaching out'} and need frontend development for my project — pixel-perfect UI, responsive design, and smooth animations. Let's discuss the scope.`,
+    backend:    (n) => `Hi, I'm ${n || 'interested'} and need backend development including APIs, database design, and server setup. I'd love to discuss the architecture and timeline.`,
+    mobile:     (n) => `Hi, I'm ${n || 'reaching out'} and need a mobile app for my business. I'm open to native or cross-platform depending on what you recommend. Let's talk.`,
+    cloud:      (n) => `Hi, I'm ${n || 'interested'} and looking for cloud solutions — infrastructure setup, deployment, and scaling. Please share how you'd approach this project.`,
+    database:   (n) => `Hi, I'm ${n || 'reaching out'} and need help with database design, optimization, and migration. Could we discuss the technical requirements?`,
+    multiple:   (n) => `Hi, I'm ${n || 'interested'} and need multiple services for my project — full-stack development, cloud, and possibly mobile. Let's schedule a call to go over everything.`,
+    consulting: (n) => `Hi, I'm ${n || 'reaching out'} and looking for technical consulting to evaluate my project idea. I'd appreciate your expert opinion on the best tech stack and approach.`,
+  };
+
+  const handleSuggest = () => {
+    setIsSuggesting(true);
+    const template = SUGGEST_TEMPLATES[form.service] || ((n) => `Hi, I'm ${n || 'reaching out'} and interested in your services. Could we schedule a call to discuss my project requirements and how your team can help?`);
+    const name = form.name.trim().split(' ')[0];
+    setTimeout(() => {
+      setForm((prev) => ({ ...prev, message: template(name) }));
+      setIsSuggesting(false);
+    }, 600);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setStatus('loading');
+    setErrorMsg('');
 
+    // Validate all required fields before submitting
+    const fields = ['name', 'email', 'phone', 'service'];
+    const newErrors = {};
+    const newTouched = {};
+    fields.forEach(f => {
+      newTouched[f] = true;
+      newErrors[f] = validate(f, form[f]);
+    });
+    setTouched(newTouched);
+    setErrors(newErrors);
+    if (Object.values(newErrors).some(e => e)) return;
+
+    setStatus('loading');
     try {
-      // POSTs to Express route — see server/routes/contact.js
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       });
-      if (!res.ok) throw new Error('Server error');
+      const data = await res.json();
+      if (!res.ok) {
+        const detail = data?.errors?.map(err => err.msg).join(', ') || data?.message || 'Something went wrong.';
+        setErrorMsg(detail);
+        setStatus('error');
+        return;
+      }
       setStatus('success');
       setForm({ name: '', email: '', phone: '', service: '', message: '' });
+      setErrors({});
+      setTouched({});
     } catch {
+      setErrorMsg('Network error. Please check your connection.');
       setStatus('error');
     }
   };
@@ -108,12 +218,14 @@ const Contact = () => {
               href={getTelUrl()}
             />
 
-            {/* Email */}
+            {/* Email — copies to clipboard on click */}
             <InfoCard
               icon="✉️"
-              label="Email"
+              label="Email (click to copy)"
               value={contact.email}
               href={getMailtoUrl()}
+              onClick={handleEmailCopy}
+              badge={emailCopied ? '✓ Copied!' : null}
             />
 
             {/* Address */}
@@ -160,23 +272,27 @@ const Contact = () => {
                       type="text"
                       value={form.name}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                       placeholder="Arjun Mehta"
-                      required
                       autoComplete="name"
+                      className={errors.name ? 'input--error' : ''}
                     />
+                    {errors.name && <p className="contact__field-error">⚠ {errors.name}</p>}
                   </div>
                   <div className="contact__field">
                     <label htmlFor="email">Email *</label>
                     <input
                       id="email"
                       name="email"
-                      type="email"
+                      type="text"
                       value={form.email}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                       placeholder="arjun@startup.com"
-                      required
                       autoComplete="email"
+                      className={errors.email ? 'input--error' : ''}
                     />
+                    {errors.email && <p className="contact__field-error">⚠ {errors.email}</p>}
                   </div>
                 </div>
 
@@ -190,9 +306,12 @@ const Contact = () => {
                       type="tel"
                       value={form.phone}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                       placeholder="+91 98765 43210"
                       autoComplete="tel"
+                      className={errors.phone ? 'input--error' : ''}
                     />
+                    {errors.phone && <p className="contact__field-error">⚠ {errors.phone}</p>}
                   </div>
                   <div className="contact__field">
                     <label htmlFor="service">Service Needed *</label>
@@ -201,7 +320,8 @@ const Contact = () => {
                       name="service"
                       value={form.service}
                       onChange={handleChange}
-                      required
+                      onBlur={handleBlur}
+                      className={errors.service ? 'input--error' : ''}
                     >
                       <option value="">Select a service…</option>
                       {SITE_CONFIG.services.map((s) => (
@@ -210,12 +330,23 @@ const Contact = () => {
                       <option value="multiple">Multiple Services</option>
                       <option value="consulting">Consulting / Not Sure</option>
                     </select>
+                    {errors.service && <p className="contact__field-error">⚠ {errors.service}</p>}
                   </div>
                 </div>
 
                 {/* Message */}
                 <div className="contact__field">
-                  <label htmlFor="message">Tell Us About Your Project *</label>
+                  <div className="contact__message-header">
+                    <label htmlFor="message">Tell Us About Your Project</label>
+                    <button
+                      type="button"
+                      className="contact__suggest-btn"
+                      onClick={handleSuggest}
+                      disabled={isSuggesting}
+                    >
+                      {isSuggesting ? '✨ Writing…' : '✨ Suggest'}
+                    </button>
+                  </div>
                   <textarea
                     id="message"
                     name="message"
@@ -223,14 +354,13 @@ const Contact = () => {
                     onChange={handleChange}
                     placeholder="Describe your idea, timeline, and budget range…"
                     rows="5"
-                    required
                   />
                 </div>
 
                 {/* Error message */}
                 {status === 'error' && (
                   <p className="contact__error" role="alert">
-                    Something went wrong. Please try WhatsApp instead.
+                    {errorMsg || 'Something went wrong. Please try WhatsApp instead.'}
                   </p>
                 )}
 

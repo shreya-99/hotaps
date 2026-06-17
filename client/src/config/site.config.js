@@ -47,7 +47,7 @@ export const SITE_CONFIG = {
     /**
      * Business email address
      */
-    email: 'hello@hotaps.com',
+    email: 'business@houseoftechnology.co.in',
 
     /**
      * Physical / registered address (optional — shown in footer)

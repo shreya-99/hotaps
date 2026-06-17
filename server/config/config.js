@@ -7,7 +7,8 @@
  * Priority:
  *   process.env value  →  fallback default
  */
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '../../.env') });
 
 const config = {
 
@@ -37,7 +38,7 @@ const config = {
     user:     process.env.SMTP_USER     || '',         // your@gmail.com
     password: process.env.SMTP_PASSWORD || '',         // App Password (not Gmail login)
     from:     process.env.EMAIL_FROM    || '"HoTaps Website" <no-reply@hotaps.com>',
-    to:       process.env.EMAIL_TO      || 'hello@hotaps.com', // where to receive leads
+    to:       process.env.EMAIL_TO      || 'business@houseoftechnology.co.in', // where to receive leads
   },
 
   // ── Rate Limiting ────────────────────────────────────────────

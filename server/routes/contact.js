@@ -31,22 +31,23 @@ const contactLimiter = rateLimit({
 });
 
 // ── Nodemailer Transport ──────────────────────────────────────
-// Lazily creates the transporter — so it doesn't crash if SMTP isn't configured
-const createTransport = () => {
-  if (!config.email.user || !config.email.password) {
-    console.warn('⚠️  SMTP not configured. Emails will not be sent. Set SMTP_USER and SMTP_PASSWORD in .env');
-    return null;
-  }
-  return nodemailer.createTransport({
+// Created once at startup and reused — avoids per-request TCP+TLS handshake
+let transporter = null;
+if (config.email.user && config.email.password) {
+  transporter = nodemailer.createTransport({
     host:   config.email.host,
     port:   config.email.port,
     secure: config.email.secure,
+    pool:   true,   // keep connection alive between sends
     auth: {
       user: config.email.user,
       pass: config.email.password,
     },
   });
-};
+  console.log(`📬 SMTP ready — ${config.email.host}:${config.email.port} as ${config.email.user}`);
+} else {
+  console.warn('⚠️  SMTP not configured. Set SMTP_USER and SMTP_PASSWORD in .env');
+}
 
 // ── Input Validation Rules ────────────────────────────────────
 const validateContact = [
@@ -61,9 +62,9 @@ const validateContact = [
     .normalizeEmail(),
 
   body('message')
+    .optional({ checkFalsy: true })
     .trim()
-    .notEmpty().withMessage('Message is required')
-    .isLength({ min: 10, max: 2000 }).withMessage('Message must be 10–2000 characters'),
+    .isLength({ max: 2000 }).withMessage('Message must be under 2000 characters'),
 
   body('phone')
     .optional({ checkFalsy: true })
@@ -125,44 +126,6 @@ const buildOwnerEmail = (data) => ({
   `,
 });
 
-/**
- * Auto-reply email sent to the person who submitted the form.
- * Confirms receipt and points them to WhatsApp for faster response.
- */
-const buildAutoReplyEmail = (data) => ({
-  from:    config.email.from,
-  to:      data.email,
-  subject: `Thanks ${data.name}! We got your message — HoTaps`,
-  html: `
-    <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
-      <div style="background: linear-gradient(135deg, #00C9A7, #845EF7); padding: 32px; border-radius: 8px 8px 0 0; text-align: center;">
-        <div style="font-size: 2.5rem;">⬡</div>
-        <h1 style="color: white; margin: 8px 0 0; font-size: 1.5rem;">House of Technology</h1>
-      </div>
-      <div style="background: #0D0D1A; padding: 40px 32px; border-radius: 0 0 8px 8px; color: #F0F2F7;">
-        <h2 style="margin: 0 0 16px; font-size: 1.3rem;">Hi ${escapeHtml(data.name)}, we've received your message! 🎉</h2>
-        <p style="color: #8892A4; line-height: 1.7;">
-          Thank you for reaching out. Our team has received your inquiry about
-          <strong style="color: #F0F2F7;">${escapeHtml(data.service || 'our services')}</strong>
-          and will get back to you within <strong style="color: #00C9A7;">24 hours</strong>.
-        </p>
-        <p style="color: #8892A4; line-height: 1.7;">
-          For a faster response, feel free to WhatsApp us directly:
-        </p>
-        <div style="text-align: center; margin: 28px 0;">
-          <a href="https://wa.me/${config.whatsappNumber}"
-             style="background: #25D366; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 1rem;">
-            💬 WhatsApp Us Now
-          </a>
-        </div>
-        <hr style="border: none; border-top: 1px solid #1A1A30; margin: 28px 0;" />
-        <p style="font-size: 0.82rem; color: #4A5568; text-align: center; margin: 0;">
-          House of Technology · hotaps.com · ${config.phoneNumber}
-        </p>
-      </div>
-    </div>
-  `,
-});
 
 // ── Utility: HTML Escape ──────────────────────────────────────
 // Prevents XSS if user data is ever reflected in HTML email
@@ -194,17 +157,11 @@ router.post(
     const data = { name, email, phone, service, message };
 
     try {
-      // 2. Attempt to send emails (non-blocking — website won't fail if SMTP isn't set)
-      const transporter = createTransport();
       if (transporter) {
-        // Send both emails in parallel
-        await Promise.all([
-          transporter.sendMail(buildOwnerEmail(data)),
-          transporter.sendMail(buildAutoReplyEmail(data)),
-        ]);
-        console.log(`📧 Contact form: emails sent for ${email}`);
+        console.log(`📤 Sending notification for submission from: ${email}`);
+        const ownerInfo = await transporter.sendMail(buildOwnerEmail(data));
+        console.log(`📧 Owner notification sent — messageId: ${ownerInfo.messageId}`);
       } else {
-        // Log to console as fallback when SMTP isn't set up
         console.log('📝 New contact form submission (SMTP not configured):');
         console.log(JSON.stringify(data, null, 2));
       }
@@ -216,7 +173,11 @@ router.post(
       });
 
     } catch (error) {
-      console.error('❌ Contact form error:', error.message);
+      console.error('❌ Email error:', error.message);
+      console.error('   Code:', error.code);
+      console.error('   Response:', error.response);
+      console.error('   Response code:', error.responseCode);
+      console.error('   Full error:', error);
       return res.status(500).json({
         success: false,
         message: 'Failed to send message. Please try WhatsApp instead.',
