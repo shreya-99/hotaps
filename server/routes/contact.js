@@ -35,10 +35,11 @@ const contactLimiter = rateLimit({
 let transporter = null;
 if (config.email.user && config.email.password) {
   transporter = nodemailer.createTransport({
-    host:   config.email.host,
-    port:   config.email.port,
-    secure: config.email.secure,
-    pool:   true,   // keep connection alive between sends
+    host:       config.email.host,
+    port:       config.email.port,
+    secure:     config.email.secure,
+    requireTLS: true,
+    pool:       true,
     auth: {
       user: config.email.user,
       pass: config.email.password,
