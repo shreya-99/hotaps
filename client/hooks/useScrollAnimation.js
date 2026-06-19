@@ -1,18 +1,6 @@
-/**
- * useScrollAnimation Hook
- * ─────────────────────────────────────────────────────────────
- * Uses the browser's IntersectionObserver API to watch elements
- * and add the 'revealed' class when they enter the viewport.
- *
- * Usage:
- *   const ref = useScrollAnimation();
- *   return <div ref={ref} className="reveal">...</div>
- *
- * The .reveal class hides elements (opacity:0, translateY(30px))
- * and .revealed makes them visible via CSS transitions.
- * See index.css for the animation definitions.
- */
-import { useEffect, useRef } from 'react';
+'use client'
+
+import { useEffect, useRef } from 'react'
 
 const useScrollAnimation = (options = {}) => {
   const ref = useRef(null);

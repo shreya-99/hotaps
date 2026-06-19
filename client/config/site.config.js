@@ -55,6 +55,15 @@ export const SITE_CONFIG = {
     address: 'Delhi, India',
   },
 
+  // ── BOOKING — Free discovery call + WhatsApp ──────────────────
+  // Sign up at calendly.com (free) and replace the URL below with yours.
+  // e.g. https://calendly.com/yourname/30min
+  // Until then, the button scrolls to the contact form.
+  booking: {
+    calendly: 'https://calendly.com/business-houseoftechnology/30min',
+    calendlyLabel: 'Book a Free Call',
+  },
+
   // ── SOCIAL LINKS ──────────────────────────────────────────────
   social: {
     linkedin: 'https://www.linkedin.com/company/house-of-technology-hot/',
@@ -79,10 +88,10 @@ export const SITE_CONFIG = {
     ctaPrimary: { label: 'Start a Project', href: '#contact' },
     ctaSecondary: { label: 'View Services', href: '#services' },
     stats: [
-      { value: '50+', label: 'Projects Shipped' },
-      { value: '30+', label: 'Happy Clients' },
-      { value: '4+', label: 'Years Experience' },
-      { value: '99%', label: 'Client Retention' },
+      { value: '10+', label: 'Projects Shipped' },
+      { value: '10+', label: 'Happy Clients' },
+      { value: '6+', label: 'Years Experience' },
+      { value: '100%', label: 'Client Retention' },
     ],
   },
 
@@ -92,7 +101,7 @@ export const SITE_CONFIG = {
   services: [
     {
       id: 'nodejs',
-      icon: '⬡',                        // Emoji or replace with icon component
+      icon: 'Server',
       title: 'Node.js Development',
       shortDesc: 'High-performance backend APIs and microservices.',
       description:
@@ -109,7 +118,7 @@ export const SITE_CONFIG = {
     },
     {
       id: 'reactjs',
-      icon: '⚛',
+      icon: 'Code2',
       title: 'React.js Development',
       shortDesc: 'Modern, fast, and beautiful web applications.',
       description:
@@ -126,7 +135,7 @@ export const SITE_CONFIG = {
     },
     {
       id: 'aws',
-      icon: '☁',
+      icon: 'Cloud',
       title: 'AWS Cloud Services',
       shortDesc: 'Cloud-native infrastructure that grows with you.',
       description:
@@ -143,7 +152,7 @@ export const SITE_CONFIG = {
     },
     {
       id: 'android',
-      icon: '📱',
+      icon: 'Smartphone',
       title: 'Android Development',
       shortDesc: 'Native Android apps that users love.',
       description:
@@ -160,7 +169,7 @@ export const SITE_CONFIG = {
     },
     {
       id: 'ios',
-      icon: '🍎',
+      icon: 'Apple',
       title: 'iOS Development',
       shortDesc: 'Polished, premium iOS experiences.',
       description:
@@ -177,7 +186,7 @@ export const SITE_CONFIG = {
     },
     {
       id: 'flutter',
-      icon: '💙',
+      icon: 'Layers',
       title: 'Flutter Development',
       shortDesc: 'One codebase. Every platform.',
       description:
@@ -197,32 +206,32 @@ export const SITE_CONFIG = {
   // ── WHY CHOOSE US ─────────────────────────────────────────────
   whyUs: [
     {
-      icon: '🚀',
+      icon: 'Rocket',
       title: 'Ship Fast, Ship Right',
       desc: 'We use battle-tested agile workflows to deliver MVPs in weeks — not months. Speed without cutting corners.',
     },
     {
-      icon: '🏗',
+      icon: 'Building2',
       title: 'Architecture First',
       desc: 'Every project starts with solid architecture planning so your codebase stays maintainable as it grows.',
     },
     {
-      icon: '🔐',
+      icon: 'Shield',
       title: 'Security by Default',
       desc: 'OWASP practices, encrypted data, secure auth flows, and regular security audits built into every project.',
     },
     {
-      icon: '📊',
+      icon: 'BarChart2',
       title: 'Data-Driven Decisions',
       desc: 'We integrate analytics from day one so you always know what your users are doing and why.',
     },
     {
-      icon: '🤝',
+      icon: 'MessageSquare',
       title: 'Transparent Communication',
       desc: 'Daily standups, sprint demos, and a shared project board mean you\'re never left wondering about status.',
     },
     {
-      icon: '🔄',
+      icon: 'RefreshCw',
       title: 'Post-Launch Support',
       desc: 'We don\'t disappear after go-live. Ongoing maintenance, monitoring, and feature development available.',
     },
@@ -263,6 +272,23 @@ export const SITE_CONFIG = {
     },
   ],
 
+  // ── TEAM / FOUNDERS ───────────────────────────────────────────
+  // Add your real team members here. Each entry shows as a card in the
+  // Team section. Update avatar, name, role, linkedin, and bio.
+  // The 'avatar' field is a 2-3 letter initials fallback shown until
+  // you add real photos. To add a photo: place it in client/public/team/
+  // and set photo: '/team/yourname.jpg' (optional field).
+  team: [
+    {
+      name: 'Shreya Tyagi',
+      role: 'Co-Founder & CEO',
+      avatar: 'ST',
+      // photo: '/team/your-name.jpg',
+      linkedin: 'https://linkedin.com/in/shreya-tyagi-41b755408',
+      bio: 'Lead developer with hands-on experience at Yamaha, HCL, DLT Labs & MelodyArc — plus a decade of freelance product builds. Founded HOT to give businesses enterprise-grade engineering at honest prices, backed by a tight-knit team of 10.',
+    }
+  ],
+
   // ── TECH STACK BADGES (used in Hero scrolling strip) ─────────
   techBadges: [
     'Node.js', 'React.js', 'Next.js', 'TypeScript', 'Flutter', 'Dart',
@@ -276,72 +302,72 @@ export const SITE_CONFIG = {
   techStack: [
     {
       id: 'frontend',
-      icon: '🖥',
+      icon: 'Monitor',
       category: 'Frontend',
       color: '#00BCD4',
       tools: [
-        { name: 'React.js',    icon: '⚛',  desc: 'UI library'         },
-        { name: 'Next.js',     icon: '▲',  desc: 'SSR framework'      },
-        { name: 'TypeScript',  icon: '𝙏𝙎', desc: 'Typed JavaScript'   },
-        { name: 'Vite',        icon: '⚡',  desc: 'Build tool'         },
-        { name: 'Tailwind CSS',icon: '🎨',  desc: 'Utility CSS'        },
-        { name: 'GraphQL',     icon: '◈',  desc: 'Query language'     },
+        { name: 'React.js',    icon: 'Code2',    desc: 'UI library'       },
+        { name: 'Next.js',     icon: 'Triangle', desc: 'SSR framework'    },
+        { name: 'TypeScript',  icon: 'FileCode', desc: 'Typed JavaScript' },
+        { name: 'Vite',        icon: 'Zap',      desc: 'Build tool'       },
+        { name: 'Tailwind CSS',icon: 'Palette',  desc: 'Utility CSS'      },
+        { name: 'GraphQL',     icon: 'GitBranch',desc: 'Query language'   },
       ],
     },
     {
       id: 'backend',
-      icon: '⚙',
+      icon: 'Server',
       category: 'Backend',
       color: '#43A047',
       tools: [
-        { name: 'Node.js',    icon: '⬡',  desc: 'JS runtime'         },
-        { name: 'Express',    icon: '🚂',  desc: 'Web framework'      },
-        { name: 'Fastify',    icon: '🏎',  desc: 'Fast framework'     },
-        { name: 'REST APIs',  icon: '🔗',  desc: 'API design'         },
-        { name: 'WebSockets', icon: '🔌',  desc: 'Real-time'          },
-        { name: 'Microservices', icon: '🔷', desc: 'Architecture'    },
+        { name: 'Node.js',       icon: 'Server',  desc: 'JS runtime'    },
+        { name: 'Express',       icon: 'Gauge',   desc: 'Web framework' },
+        { name: 'Fastify',       icon: 'Zap',     desc: 'Fast framework'},
+        { name: 'REST APIs',     icon: 'Link2',   desc: 'API design'    },
+        { name: 'WebSockets',    icon: 'Plug',    desc: 'Real-time'     },
+        { name: 'Microservices', icon: 'Network', desc: 'Architecture'  },
       ],
     },
     {
       id: 'mobile',
-      icon: '📱',
+      icon: 'TabletSmartphone',
       category: 'Mobile',
       color: '#03A9F4',
       tools: [
-        { name: 'Flutter',     icon: '💙',  desc: 'Cross-platform'    },
-        { name: 'Dart',        icon: '🎯',  desc: 'Flutter language'  },
-        { name: 'Swift',       icon: '🍎',  desc: 'iOS native'        },
-        { name: 'SwiftUI',     icon: '🖼',  desc: 'iOS UI framework'  },
-        { name: 'Kotlin',      icon: '🤖',  desc: 'Android native'    },
-        { name: 'Jetpack Compose', icon: '📐', desc: 'Android UI'    },
+        { name: 'Flutter',         icon: 'Layers',     desc: 'Cross-platform'   },
+        { name: 'Dart',            icon: 'Target',     desc: 'Flutter language' },
+        { name: 'Swift',           icon: 'Apple',      desc: 'iOS native'       },
+        { name: 'SwiftUI',         icon: 'LayoutGrid', desc: 'iOS UI framework' },
+        { name: 'Kotlin',          icon: 'Code',       desc: 'Android native'   },
+        { name: 'Jetpack Compose', icon: 'Boxes',      desc: 'Android UI'       },
       ],
     },
     {
       id: 'cloud',
-      icon: '☁',
+      icon: 'Cloud',
       category: 'Cloud & DevOps',
       color: '#FF9800',
       tools: [
-        { name: 'AWS',           icon: '☁',  desc: 'Cloud platform'   },
-        { name: 'Docker',        icon: '🐳',  desc: 'Containers'       },
-        { name: 'Kubernetes',    icon: '⎈',  desc: 'Orchestration'    },
-        { name: 'Terraform',     icon: '🏗',  desc: 'Infra as code'    },
-        { name: 'GitHub Actions',icon: '⚙',  desc: 'CI/CD pipelines'  },
-        { name: 'Firebase',      icon: '🔥',  desc: 'BaaS platform'    },
+        { name: 'AWS',            icon: 'Cloud',     desc: 'Cloud platform'  },
+        { name: 'Docker',         icon: 'Box',       desc: 'Containers'      },
+        { name: 'Kubernetes',     icon: 'Network',   desc: 'Orchestration'   },
+        { name: 'Terraform',      icon: 'Building2', desc: 'Infra as code'   },
+        { name: 'GitHub Actions', icon: 'Workflow',  desc: 'CI/CD pipelines' },
+        { name: 'Firebase',       icon: 'Flame',     desc: 'BaaS platform'   },
       ],
     },
     {
       id: 'database',
-      icon: '🗄',
+      icon: 'Database',
       category: 'Databases',
       color: '#9C27B0',
       tools: [
-        { name: 'PostgreSQL', icon: '🐘',  desc: 'Relational DB'     },
-        { name: 'MongoDB',    icon: '🍃',  desc: 'Document DB'       },
-        { name: 'Redis',      icon: '🟥',  desc: 'In-memory cache'   },
-        { name: 'MySQL',      icon: '🐬',  desc: 'Relational DB'     },
-        { name: 'DynamoDB',   icon: '⚡',  desc: 'AWS NoSQL'         },
-        { name: 'Supabase',   icon: '💚',  desc: 'Open source BaaS'  },
+        { name: 'PostgreSQL', icon: 'Database', desc: 'Relational DB'    },
+        { name: 'MongoDB',    icon: 'Leaf',     desc: 'Document DB'      },
+        { name: 'Redis',      icon: 'Zap',      desc: 'In-memory cache'  },
+        { name: 'MySQL',      icon: 'Database', desc: 'Relational DB'    },
+        { name: 'DynamoDB',   icon: 'Cloud',    desc: 'AWS NoSQL'        },
+        { name: 'Supabase',   icon: 'Database', desc: 'Open source BaaS' },
       ],
     },
   ],

@@ -1,0 +1,130 @@
+/* ── Team Section ─────────────────────────────────────────────── */
+
+.team {
+  position: relative;
+  overflow: hidden;
+}
+
+.team__orb {
+  top: 10%;
+  right: -200px;
+}
+
+.team__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 56px;
+}
+
+/* ── Team Card ─────────────────────────────────────────────────── */
+
+.team__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 40px 32px 32px;
+  gap: 16px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team__card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--glow-teal);
+}
+
+/* ── Avatar ────────────────────────────────────────────────────── */
+
+.team__avatar-wrap {
+  position: relative;
+}
+
+.team__avatar-img {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--border-accent);
+}
+
+.team__avatar-initials {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-teal), var(--accent-purple));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #07070F;
+  border: 2px solid var(--border-accent);
+  letter-spacing: 1px;
+}
+
+/* ── Info ──────────────────────────────────────────────────────── */
+
+.team__info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.team__name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.team__role {
+  font-size: 0.85rem;
+  color: var(--accent-teal);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.team__bio {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 8px 0 0;
+}
+
+/* ── LinkedIn link ─────────────────────────────────────────────── */
+
+.team__linkedin {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: border-color 0.2s ease, color 0.2s ease;
+  margin-top: auto;
+}
+
+.team__linkedin:hover {
+  border-color: var(--accent-teal);
+  color: var(--accent-teal);
+}
+
+/* ── Responsive ────────────────────────────────────────────────── */
+
+@media (max-width: 600px) {
+  .team__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .team__card {
+    padding: 32px 24px 24px;
+  }
+}
