@@ -288,11 +288,11 @@ export const SITE_CONFIG = {
     },
     {
       name: 'Shreya Tyagi',
-      role: 'Lead Developer & Co-Founder',
+      role: 'Co-Founder & Engineering Lead',
       avatar: 'ST',
       // photo: '/team/shreya.jpg',
       linkedin: 'https://linkedin.com/in/shreya-tyagi-41b755408',
-      bio: 'Hands-on engineering lead with years of experience building and shipping products across startups, enterprises, and freelance engagements. Owns architecture and delivery at House of Technology, guiding a team of 10 engineers to ship scalable, production-ready software that businesses can rely on.',
+      bio: 'Co-founded House of Technology to make dependable engineering affordable. Still hands-on in the code, Shreya leads architecture and delivery, working closely with a team of 10 engineers and with clients from the first call to launch and beyond.',
     },
   ],
 
