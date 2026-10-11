@@ -280,13 +280,20 @@ export const SITE_CONFIG = {
   // and set photo: '/team/yourname.jpg' (optional field).
   team: [
     {
+      name: 'Hariom Tyagi',
+      role: 'Director',
+      avatar: 'HT',
+      // photo: '/team/hariom.jpg',
+      bio: 'Director at House of Technology.',
+    },
+    {
       name: 'Shreya Tyagi',
-      role: 'Co-Founder & CEO',
+      role: 'Lead Developer',
       avatar: 'ST',
-      // photo: '/team/your-name.jpg',
+      // photo: '/team/shreya.jpg',
       linkedin: 'https://linkedin.com/in/shreya-tyagi-41b755408',
       bio: 'Lead developer with hands-on experience at Yamaha, HCL, DLT Labs & MelodyArc — plus a decade of freelance product builds. Founded HOT to give businesses enterprise-grade engineering at honest prices, backed by a tight-knit team of 10.',
-    }
+    },
   ],
 
   // ── TECH STACK BADGES (used in Hero scrolling strip) ─────────
