@@ -288,11 +288,11 @@ export const SITE_CONFIG = {
     },
     {
       name: 'Shreya Tyagi',
-      role: 'Lead Developer',
+      role: 'Lead Developer & Co-Founder',
       avatar: 'ST',
       // photo: '/team/shreya.jpg',
       linkedin: 'https://linkedin.com/in/shreya-tyagi-41b755408',
-      bio: 'Engineering lead with hands-on experience at Yamaha, HCL, DLT Labs & MelodyArc, plus years of freelance product builds. Owns architecture and delivery at House of Technology, guiding a team of 10 engineers to ship scalable, production-ready software that businesses can rely on.',
+      bio: 'Hands-on engineering lead with years of experience building and shipping products across startups, enterprises, and freelance engagements. Owns architecture and delivery at House of Technology, guiding a team of 10 engineers to ship scalable, production-ready software that businesses can rely on.',
     },
   ],
 
