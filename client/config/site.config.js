@@ -284,7 +284,7 @@ export const SITE_CONFIG = {
       role: 'Director',
       avatar: 'HT',
       // photo: '/team/hariom.jpg',
-      bio: 'Director at House of Technology.',
+      bio: 'Visionary leader behind House of Technology. Drives the company\'s strategic direction, client partnerships, and long-term growth — with a firm belief that world-class engineering should be accessible to every business, not just the ones with deep pockets.',
     },
     {
       name: 'Shreya Tyagi',
@@ -292,7 +292,7 @@ export const SITE_CONFIG = {
       avatar: 'ST',
       // photo: '/team/shreya.jpg',
       linkedin: 'https://linkedin.com/in/shreya-tyagi-41b755408',
-      bio: 'Lead developer with hands-on experience at Yamaha, HCL, DLT Labs & MelodyArc — plus a decade of freelance product builds. Founded HOT to give businesses enterprise-grade engineering at honest prices, backed by a tight-knit team of 10.',
+      bio: 'Engineering lead with hands-on experience at Yamaha, HCL, DLT Labs & MelodyArc, plus years of freelance product builds. Owns architecture and delivery at House of Technology, guiding a team of 10 engineers to ship scalable, production-ready software that businesses can rely on.',
     },
   ],
 
